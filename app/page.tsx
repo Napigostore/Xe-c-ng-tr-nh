@@ -19,84 +19,18 @@ import { OrderCheckout } from "./components/OrderCheckout";
 import {
   salesConfig,
   hasPhoneContact,
-  hasZaloContact,
   primaryChatLabel,
-  primaryChatUrl,
+  primaryChatUrl
 } from "./config/salesConfig";
-
 import { company } from "./config/company";
 import { shipping } from "./config/shipping";
 import { banner } from "./config/banner";
-import { seo } from "./config/seo";
 import { products } from "./config/products";
 
-const products = [
-  {
-    name: "Máy xúc điều khiển từ xa YIGONG",
-    model: "11 kênh, gầu hợp kim, tỉ lệ 1:20",
-    price: "359.000đ - 409.000đ",
-    schemaPrice: "359000",
-    rating: "4.9",
-    sold: "664 đã bán",
-    reviews: "384 đánh giá",
-    image: "/assets/products/xuc-yigong.webp",
-    badge: "Bán chạy",
-    highlights: ["2.4GHz", "Gầu hợp kim", "Mô phỏng chân thực"],
-    href: `${shopUrl}?keyword=m%C3%A1y%20x%C3%BAc%20yigong`
-  },
-  {
-    name: "Xe tải điều khiển từ xa XUEZHISHAN",
-    model: "Thùng hợp kim nâng 65 độ, tỉ lệ 1:20",
-    price: "569.000đ",
-    schemaPrice: "569000",
-    rating: "4.9",
-    sold: "156 đã bán",
-    reviews: "52 đánh giá",
-    image: "/assets/products/ben-xuezhishan.webp",
-    badge: "Thùng nâng 65 độ",
-    highlights: ["Điều khiển từ xa", "Chi tiết sắc nét", "Quà tặng hấp dẫn"],
-    href: `${shopUrl}?keyword=xuezhishan%20xe%20t%E1%BA%A3i`
-  },
-  {
-    name: "Xe ủi điều khiển từ xa YIGONG",
-    model: "9 kênh, gầu hợp kim, tỉ lệ 1:20",
-    price: "369.000đ",
-    schemaPrice: "369000",
-    rating: "4.9",
-    sold: "142 đã bán",
-    reviews: "51 đánh giá",
-    image: "/assets/products/ui-yigong.webp",
-    badge: "Gầu hợp kim",
-    highlights: ["9 chức năng", "Hỏa tốc", "Bảo hành uy tín"],
-    href: `${shopUrl}?keyword=xe%20%E1%BB%A7i%20yigong`
-  },
-  {
-    name: "Xe tải điều khiển từ xa YIGONG",
-    model: "9 kênh, thùng hợp kim nâng 45 độ, tỉ lệ 1:20",
-    price: "309.000đ",
-    schemaPrice: "309000",
-    rating: "4.8",
-    sold: "306 đã bán",
-    reviews: "124 đánh giá",
-    image: "/assets/products/ben-yigong.webp",
-    badge: "Giá tốt",
-    highlights: ["9 chức năng", "Thùng nâng", "Giao hỏa tốc"],
-    href: `${shopUrl}?keyword=yigong%20xe%20t%E1%BA%A3i`
-  },
-  {
-    name: "Máy xúc điều khiển từ xa XUEZHISHAN",
-    model: "11 kênh, gầu hợp kim, tỉ lệ 1:20",
-    price: "789.000đ",
-    schemaPrice: "789000",
-    rating: "5.0",
-    sold: "170 đã bán",
-    reviews: "73 đánh giá",
-    image: "/assets/products/xuc-xuezhishan.webp",
-    badge: "Cao cấp",
-    highlights: ["11 kênh", "Phụ kiện đi kèm", "Quà sinh nhật cho bé"],
-    href: `${shopUrl}?keyword=m%C3%A1y%20x%C3%BAc%20xuezhishan`
-  }
-];
+const shopUrl = salesConfig.shopUrl;
+const phoneDisplay = salesConfig.phoneDisplay;
+const phoneHref = salesConfig.phoneHref;
+const zaloUrl = salesConfig.zaloUrl;
 
 const benefits = [
   {
@@ -111,8 +45,8 @@ const benefits = [
   },
   {
     icon: Truck,
-    title: "Giao nhanh",
-    text: "Hỗ trợ giao hỏa tốc theo khu vực và đóng gói kỹ trước khi gửi hàng."
+    title: "Giao siêu tốc",
+    text: `${shipping.express}. ${shipping.nationwide}.`
   },
   {
     icon: Gift,
@@ -125,7 +59,7 @@ const policies = [
   "Bảo hành uy tín 7 ngày theo thông tin hiển thị trên sản phẩm.",
   "Hỗ trợ đổi trả nếu sản phẩm lỗi kỹ thuật, sai mẫu hoặc hư hỏng do vận chuyển.",
   "Tư vấn chọn xe theo độ tuổi, ngân sách và sở thích của bé trước khi đặt.",
-  "Đóng gói chống móp, kiểm tra ngoại quan trước khi gửi cho đơn đặt trực tiếp."
+  shipping.note
 ];
 
 const reviews = [
@@ -156,8 +90,7 @@ const faqs = [
   },
   {
     question: "Có giao hỏa tốc không?",
-    answer:
-      "Có hỗ trợ giao hỏa tốc theo khu vực. Bạn nên nhắn Zalo hoặc gọi trước để shop kiểm tra tồn kho và thời gian giao."
+    answer: `${shipping.express} tùy khu vực. Đơn đi tỉnh thường nhận hàng trong 1-4 ngày.`
   },
   {
     question: "Nên chọn xe xúc, xe ben hay xe ủi?",
@@ -167,7 +100,7 @@ const faqs = [
   {
     question: "Đặt hàng bằng cách nào nhanh nhất?",
     answer:
-      "Bạn có thể bấm Chat Shopee, Shop chính thức hoặc Đặt ngay ở thanh cuối màn hình để shop tư vấn mẫu còn hàng và chốt đơn nhanh."
+      "Bạn có thể bấm Chat Zalo, Shop Shopee hoặc Đặt ngay ở thanh cuối màn hình để shop tư vấn mẫu còn hàng và chốt đơn nhanh."
   }
 ];
 
@@ -211,13 +144,13 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      name: "Napigo Eco Home",
+      name: company.name,
       url: shopUrl,
-      sameAs: [shopUrl]
+      sameAs: [shopUrl, salesConfig.facebookUrl, salesConfig.zaloUrl].filter(Boolean)
     },
     {
       "@type": "WebPage",
-      name: "Xe đồ chơi công trình cho bé",
+      name: banner.heroTitle,
       description:
         "Landing page bán xe đồ chơi công trình điều khiển từ xa, tập trung tư vấn, đặt hàng và thanh toán qua shop Shopee chính thức."
     },
@@ -266,14 +199,14 @@ function Hero() {
     <section className="relative bg-[#fff2c7] pb-8 pt-4 md:pb-14 md:pt-5">
       <div className="section-shell">
         <header className="flex items-center justify-between gap-4 py-2">
-          <a href="#top" className="flex items-center gap-2" aria-label="Napigo Eco Home">
+          <a href="#top" className="flex items-center gap-2" aria-label={company.name}>
             <span className="grid size-10 place-items-center rounded-full bg-white text-sm font-black text-signal-red shadow-sm">
               N
             </span>
             <span className="leading-tight">
-              <span className="block text-sm font-black">Napigo Eco Home</span>
+              <span className="block text-sm font-black">{company.name}</span>
               <span className="block text-xs font-semibold text-slate-600">
-                Xe công trình cho bé
+                {company.slogan}
               </span>
             </span>
           </a>
@@ -292,16 +225,18 @@ function Hero() {
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-steel-green shadow-sm">
               <BadgeCheck aria-hidden="true" className="size-4" />
-              Shop 4.9 sao trên Shopee
+              {banner.heroBadge}
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.03] text-ink md:text-6xl">
-              Xe đồ chơi công trình điều khiển từ xa cho bé
+              {banner.heroTitle}
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-700 md:text-lg">
-              Bộ xe xúc, xe ben, xe ủi YIGONG và XUEZHISHAN có gầu/thùng hợp
-              kim, mô phỏng chân thực, phù hợp làm quà sinh nhật hoặc đồ chơi
-              vận động tư duy cho bé.
+              {banner.heroSubtitle}
             </p>
+
+            <div className="mt-4 inline-flex rounded-[8px] bg-white px-4 py-3 text-sm font-black text-steel-green shadow-sm">
+              {shipping.express} • {shipping.nationwide}
+            </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
@@ -332,9 +267,9 @@ function Hero() {
 
             <div className="mt-6 grid grid-cols-3 gap-2 text-center">
               {[
-                ["5", "mẫu chủ lực"],
+                [String(products.length), "mẫu chủ lực"],
                 ["7 ngày", "bảo hành"],
-                ["2h", "hỗ trợ hỏa tốc"]
+                ["30 phút", "hỏa tốc nội thành"]
               ].map(([value, label]) => (
                 <div
                   key={label}
@@ -384,7 +319,7 @@ function PromoBanner() {
               Banner khuyến mãi hôm nay
             </p>
             <p className="mt-1 text-lg font-black leading-snug text-ink md:text-2xl">
-              Mua combo từ 2 xe giảm 8%, tặng phụ kiện công trường mini
+              {banner.promoTitle}, {banner.promoSubtitle}
             </p>
           </div>
         </div>
@@ -406,7 +341,7 @@ function ProductSection() {
       <div className="section-shell">
         <SectionHeading
           eyebrow="Danh mục sản phẩm"
-          title="5 mẫu đang bán trên shop Napigo Eco Home"
+          title={`${products.length} mẫu đang bán trên shop ${company.name}`}
           text="Thông tin tên sản phẩm, giá, đánh giá và lượt bán được biên tập theo dữ liệu hiển thị tại shop Shopee chính thức."
         />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -621,7 +556,7 @@ function TrustSection() {
     {
       icon: Truck,
       title: "Giao nhanh, rõ phí",
-      text: "Shop xác nhận tồn kho, phí vận chuyển và thời gian giao trước khi khách thanh toán hoặc nhận COD."
+      text: shipping.note
     }
   ];
 
