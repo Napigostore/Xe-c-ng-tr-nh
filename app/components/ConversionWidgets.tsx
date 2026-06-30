@@ -23,14 +23,24 @@ export function ConversionWidgets({
   shopUrl
 }: ConversionWidgetsProps) {
   const [showOffer, setShowOffer] = useState(false);
+  const [showProof, setShowProof] = useState(false);
 
   useEffect(() => {
     const dismissedAt = Number(localStorage.getItem(storageKey) || 0);
     const shouldShow = Date.now() - dismissedAt > oneDay;
     if (!shouldShow) return;
 
-    const timer = window.setTimeout(() => setShowOffer(true), 20000);
+    const timer = window.setTimeout(() => setShowOffer(true), 18000);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowProof(true), 8000);
+    const hideTimer = window.setTimeout(() => setShowProof(false), 18000);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(hideTimer);
+    };
   }, []);
 
   const closeOffer = () => {
@@ -43,6 +53,12 @@ export function ConversionWidgets({
       <div className="fixed inset-x-0 top-0 z-50 bg-ink px-3 py-2 text-center text-xs font-black text-white shadow-lift md:text-sm">
         🚚 Nội thành 30 phút • Toàn quốc 1-4 ngày • Shop 4.9★
       </div>
+
+      {showProof ? (
+        <div className="fixed left-3 top-12 z-40 max-w-[280px] rounded-[8px] border border-black/10 bg-white px-3 py-2 text-xs font-bold text-ink shadow-lift md:left-6 md:top-14">
+          🔥 Có khách vừa hỏi mẫu xe xúc YIGONG. Nhắn Zalo để kiểm tồn nhanh.
+        </div>
+      ) : null}
 
       <a
         href={primaryChatUrl}
@@ -79,10 +95,10 @@ export function ConversionWidgets({
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-signal-red">
-                  Ưu đãi hôm nay
+                  Đừng bỏ lỡ mẫu đang có sẵn
                 </p>
                 <h2 id="offer-title" className="mt-1 text-2xl font-black">
-                  Nhắn Zalo để kiểm tồn và giữ ưu đãi
+                  Nhắn Zalo để kiểm tồn, xem video thật và giữ mẫu đẹp
                 </h2>
               </div>
               <button
@@ -95,7 +111,7 @@ export function ConversionWidgets({
               </button>
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              Shop hỗ trợ chọn mẫu theo độ tuổi, gửi video thật và báo thời gian giao trước khi chốt đơn.
+              Shop hỗ trợ chọn mẫu theo độ tuổi của bé, gửi video sản phẩm thật và báo thời gian giao trước khi chốt đơn.
             </p>
             <div className="mt-4 grid gap-2 rounded-[8px] bg-[#fff2c7] p-3 text-sm font-bold text-ink">
               <p className="flex items-center gap-2">
@@ -103,6 +119,7 @@ export function ConversionWidgets({
                 Nội thành hỏa tốc từ 30 phút, đi tỉnh 1-4 ngày.
               </p>
               <p>Đóng gói kỹ, hỗ trợ đổi trả nếu lỗi kỹ thuật hoặc sai mẫu.</p>
+              <p>Ưu tiên giữ mẫu cho khách nhắn Zalo trước.</p>
             </div>
             <div className="mt-5 grid grid-cols-2 gap-3">
               <a
@@ -110,7 +127,7 @@ export function ConversionWidgets({
                 className="focus-ring inline-flex items-center justify-center gap-2 rounded-[8px] bg-zalo-blue px-4 py-3 text-sm font-bold text-white"
               >
                 <MessageCircle aria-hidden="true" className="size-4" />
-                Nhắn Zalo
+                Kiểm tồn Zalo
               </a>
               <a
                 href={shopUrl}
