@@ -15,6 +15,7 @@ import {
   Wrench
 } from "lucide-react";
 import { ConversionWidgets } from "./components/ConversionWidgets";
+import { OrderCheckout } from "./components/OrderCheckout";
 
 const shopUrl = "https://shopee.vn/napigo_eco_home";
 const phoneDisplay = "0900 000 000";
@@ -226,12 +227,18 @@ export default function Home() {
       />
       <Hero />
       <ProductSection />
+      <OrderCheckout
+        phoneDisplay={phoneDisplay}
+        phoneHref={phoneHref}
+        shopUrl={shopUrl}
+        zaloUrl={zaloUrl}
+      />
       <VideoSection />
       <BenefitSection />
       <ReviewSection />
+      <TrustSection />
       <PolicySection />
       <FaqSection />
-      <FinalCta />
       <ConversionWidgets zaloUrl={zaloUrl} phoneHref={phoneHref} />
     </main>
   );
@@ -261,6 +268,8 @@ function Hero() {
             Shop Shopee
           </a>
         </header>
+
+        <PromoBanner />
 
         <div className="grid items-center gap-8 pt-7 md:grid-cols-[0.95fr_1.05fr] md:gap-12 md:pt-10">
           <div>
@@ -332,6 +341,35 @@ function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function PromoBanner() {
+  return (
+    <div className="mt-4 rounded-[8px] border border-black/10 bg-white p-3 shadow-lift md:p-4">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-start gap-3">
+          <span className="grid size-11 shrink-0 place-items-center rounded-[8px] bg-safety-yellow text-ink">
+            <Gift aria-hidden="true" className="size-6" />
+          </span>
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.14em] text-signal-red">
+              Banner khuyến mãi hôm nay
+            </p>
+            <p className="mt-1 text-lg font-black leading-snug text-ink md:text-2xl">
+              Mua combo từ 2 xe giảm 8%, tặng phụ kiện công trường mini
+            </p>
+          </div>
+        </div>
+        <a
+          href="#dat-hang"
+          className="focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-[8px] bg-ink px-4 py-3 text-sm font-black text-white"
+        >
+          Đặt giữ ưu đãi
+          <ChevronRight aria-hidden="true" className="size-4" />
+        </a>
+      </div>
+    </div>
   );
 }
 
@@ -536,6 +574,62 @@ function ReviewSection() {
   );
 }
 
+function TrustSection() {
+  const items = [
+    {
+      icon: ShieldCheck,
+      title: "Ưu tiên an toàn",
+      text: "Tư vấn mẫu phù hợp độ tuổi, nhắc phụ huynh kiểm tra pin và hướng dẫn bé chơi dưới sự quan sát của người lớn."
+    },
+    {
+      icon: BadgeCheck,
+      title: "Shop chính thức",
+      text: "Điều hướng thanh toán qua Shopee Napigo Eco Home để khách dùng hệ thống bảo vệ người mua khi cần."
+    },
+    {
+      icon: PackageCheck,
+      title: "Đóng gói kỹ",
+      text: "Sản phẩm được kiểm tra ngoại quan, bọc chống móp và gửi đúng mẫu đã xác nhận với khách."
+    },
+    {
+      icon: Truck,
+      title: "Giao nhanh, rõ phí",
+      text: "Shop xác nhận tồn kho, phí vận chuyển và thời gian giao trước khi khách thanh toán hoặc nhận COD."
+    }
+  ];
+
+  return (
+    <section className="bg-[#fffaf0] py-12 md:py-16">
+      <div className="section-shell">
+        <SectionHeading
+          eyebrow="An tâm mua cho con"
+          title="Đồ chơi nhìn xịn, cầm chắc tay, quy trình mua rõ ràng"
+          text="Landing page được tối ưu để phụ huynh có đủ thông tin trước khi ra quyết định: ảnh thật, video thật, đánh giá shop, chính sách và phương thức thanh toán minh bạch."
+        />
+        <div className="mt-8 grid gap-4 md:grid-cols-4">
+          {items.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-[8px] border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <item.icon
+                aria-hidden="true"
+                className="size-8 text-steel-green"
+              />
+              <h3 className="mt-4 text-lg font-black text-ink">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PolicySection() {
   return (
     <section id="chinh-sach" className="bg-white py-12 md:py-16">
@@ -600,53 +694,6 @@ function FaqSection() {
               </p>
             </details>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCta() {
-  return (
-    <section id="dat-hang" className="bg-white py-12 md:py-16">
-      <div className="section-shell rounded-[8px] bg-ink p-6 text-white shadow-soft md:p-10">
-        <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.16em] text-safety-yellow">
-              Đặt nhanh hôm nay
-            </p>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-              Nhắn mẫu xe bé thích, shop kiểm tồn và báo ưu đãi ngay
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-white/78">
-              Gửi độ tuổi của bé, ngân sách dự kiến và mẫu bạn muốn xem. Shop
-              sẽ tư vấn mẫu phù hợp, video sản phẩm và chính sách bảo hành
-              trước khi chốt đơn.
-            </p>
-          </div>
-          <div className="grid gap-3">
-            <a
-              href={zaloUrl}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-zalo-blue px-5 py-3 text-base font-black text-white"
-            >
-              <MessageCircle aria-hidden="true" className="size-5" />
-              Chat Zalo ngay
-            </a>
-            <a
-              href={phoneHref}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-safety-yellow px-5 py-3 text-base font-black text-ink"
-            >
-              <Phone aria-hidden="true" className="size-5" />
-              Gọi {phoneDisplay}
-            </a>
-            <a
-              href={shopUrl}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] border border-white/18 px-5 py-3 text-base font-black text-white"
-            >
-              <ShoppingBag aria-hidden="true" className="size-5" />
-              Xem shop Shopee
-            </a>
-          </div>
         </div>
       </div>
     </section>

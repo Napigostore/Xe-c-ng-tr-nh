@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://xecongtrinhdochoi.vn";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://dochoinhapkhau.tienso.vn";
 const siteName = "Xe Công Trình Đồ Chơi";
 const title = "Xe đồ chơi công trình cao cấp cho bé | Gọi/Zalo nhận ưu đãi";
 const description =
