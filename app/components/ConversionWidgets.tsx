@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, MessageCircle, Phone, ShoppingCart, Store, X } from "lucide-react";
+import { Home, MessageCircle, Phone, ShoppingBag, Store, Truck, X } from "lucide-react";
 import type { ReactElement } from "react";
 import { useEffect, useState } from "react";
 
@@ -40,10 +40,14 @@ export function ConversionWidgets({
 
   return (
     <>
+      <div className="fixed inset-x-0 top-0 z-50 bg-ink px-3 py-2 text-center text-xs font-black text-white shadow-lift md:text-sm">
+        🚚 Nội thành 30 phút • Toàn quốc 1-4 ngày • Shop 4.9★
+      </div>
+
       <a
         href={primaryChatUrl}
         aria-label={`${primaryChatLabel} để nhận tư vấn`}
-        className="focus-ring fixed bottom-[92px] right-4 z-40 grid size-14 place-items-center rounded-full bg-zalo-blue text-white shadow-lift transition hover:translate-y-[-2px] md:bottom-6 md:right-6"
+        className="focus-ring fixed bottom-[100px] right-4 z-40 grid size-14 place-items-center rounded-full bg-zalo-blue text-white shadow-lift transition hover:translate-y-[-2px] md:bottom-6 md:right-6"
       >
         <MessageCircle aria-hidden="true" className="size-7" />
       </a>
@@ -54,22 +58,13 @@ export function ConversionWidgets({
       >
         <div className="mx-auto grid max-w-md grid-cols-4 gap-1">
           <MobileAction href="#top" label="Trang chủ" icon={<Home />} />
-          <MobileAction
-            href={primaryChatUrl}
-            label={primaryChatLabel.replace("Chat ", "")}
-            icon={<MessageCircle />}
-          />
+          <MobileAction href={primaryChatUrl} label="Zalo" icon={<MessageCircle />} emphasis />
           <MobileAction
             href={hasPhoneContact ? phoneHref : shopUrl}
             label={hasPhoneContact ? "Gọi" : "Shop"}
             icon={hasPhoneContact ? <Phone /> : <Store />}
           />
-          <MobileAction
-            href="#dat-hang"
-            label="Đặt ngay"
-            icon={<ShoppingCart />}
-            emphasis
-          />
+          <MobileAction href={shopUrl} label="Shopee" icon={<ShoppingBag />} />
         </div>
       </nav>
 
@@ -87,7 +82,7 @@ export function ConversionWidgets({
                   Ưu đãi hôm nay
                 </p>
                 <h2 id="offer-title" className="mt-1 text-2xl font-black">
-                  Giảm 15% cho combo công trường
+                  Nhắn Zalo để kiểm tồn và giữ ưu đãi
                 </h2>
               </div>
               <button
@@ -100,27 +95,29 @@ export function ConversionWidgets({
               </button>
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              Tặng thêm 6 biển báo mini cho đơn đặt qua chat trong hôm nay. Số
-              lượng quà tặng có hạn theo từng đợt hàng.
+              Shop hỗ trợ chọn mẫu theo độ tuổi, gửi video thật và báo thời gian giao trước khi chốt đơn.
             </p>
+            <div className="mt-4 grid gap-2 rounded-[8px] bg-[#fff2c7] p-3 text-sm font-bold text-ink">
+              <p className="flex items-center gap-2">
+                <Truck aria-hidden="true" className="size-4 text-steel-green" />
+                Nội thành hỏa tốc từ 30 phút, đi tỉnh 1-4 ngày.
+              </p>
+              <p>Đóng gói kỹ, hỗ trợ đổi trả nếu lỗi kỹ thuật hoặc sai mẫu.</p>
+            </div>
             <div className="mt-5 grid grid-cols-2 gap-3">
               <a
                 href={primaryChatUrl}
                 className="focus-ring inline-flex items-center justify-center gap-2 rounded-[8px] bg-zalo-blue px-4 py-3 text-sm font-bold text-white"
               >
                 <MessageCircle aria-hidden="true" className="size-4" />
-                Nhận ưu đãi
+                Nhắn Zalo
               </a>
               <a
-                href={hasPhoneContact ? phoneHref : shopUrl}
+                href={shopUrl}
                 className="focus-ring inline-flex items-center justify-center gap-2 rounded-[8px] border border-slate-200 px-4 py-3 text-sm font-bold text-slate-900"
               >
-                {hasPhoneContact ? (
-                  <Phone aria-hidden="true" className="size-4" />
-                ) : (
-                  <Store aria-hidden="true" className="size-4" />
-                )}
-                {hasPhoneContact ? "Gọi tư vấn" : "Mở Shopee"}
+                <ShoppingBag aria-hidden="true" className="size-4" />
+                Mở Shopee
               </a>
             </div>
           </div>
