@@ -39,6 +39,18 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: https://dochoinhapkhau.tienso.vn
 
+      - name: Add delivery banner
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          banner = '<div style="background:#16202a;color:#fff;text-align:center;font-weight:900;font-size:14px;padding:8px 12px">Giao noi thanh hoa toc 30 phut - Di tinh nhan hang 1-4 ngay</div>'
+          for path in Path('out').glob('**/*.html'):
+              html = path.read_text(encoding='utf-8')
+              if 'Giao noi thanh hoa toc 30 phut' not in html:
+                  html = html.replace('<body>', '<body>' + banner, 1)
+                  path.write_text(html, encoding='utf-8')
+          PY
+
       - name: Add nojekyll file
         run: touch out/.nojekyll
 
