@@ -29,3 +29,26 @@ export const primaryChatUrl =
 
 export const primaryChatLabel =
   salesConfig.primaryChat === "zalo" ? "Chat Zalo" : "Chat Shopee";
+
+export const socialLinks = [
+  {
+    label: "Shopee",
+    url: salesConfig.shopUrl,
+  },
+  {
+    label: "Facebook",
+    url: salesConfig.facebookUrl,
+  },
+  {
+    label: "Zalo",
+    url: salesConfig.zaloUrl,
+  },
+  {
+    label: "TikTok",
+    url: salesConfig.tiktokUrl,
+  },
+  {
+    label: "YouTube",
+    url: salesConfig.youtubeUrl,
+  },
+].filter((item) => Boolean(item.url));
