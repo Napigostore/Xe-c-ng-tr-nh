@@ -26,83 +26,16 @@ import { company } from "./config/company";
 import { shipping } from "./config/shipping";
 import { banner } from "./config/banner";
 import { products } from "./config/products";
+import { benefits } from "./config/benefits";
+import { policies } from "./config/policies";
+import { reviews } from "./config/reviews";
+import { faqs } from "./config/faqs";
 
 const shopUrl = salesConfig.shopUrl;
 const phoneDisplay = salesConfig.phoneDisplay;
 const phoneHref = salesConfig.phoneHref;
 const zaloUrl = salesConfig.zaloUrl;
-
-const benefits = [
-  {
-    icon: ShieldCheck,
-    title: "An toàn cho bé",
-    text: "Thiết kế cạnh bo, vật liệu chắc tay, phù hợp làm quà tặng cho bé yêu xe công trình."
-  },
-  {
-    icon: Wrench,
-    title: "Mô phỏng chân thực",
-    text: "Gầu, thùng và thân xe có chuyển động giống xe công trình thật, giúp bé chơi nhập vai lâu hơn."
-  },
-  {
-    icon: Truck,
-    title: "Giao siêu tốc",
-    text: `${shipping.express}. ${shipping.nationwide}.`
-  },
-  {
-    icon: Gift,
-    title: "Quà tặng hấp dẫn",
-    text: "Một số đợt hàng có phụ kiện tặng kèm, phù hợp dịp sinh nhật hoặc phần thưởng cho bé."
-  }
-];
-
-const policies = [
-  "Bảo hành uy tín 7 ngày theo thông tin hiển thị trên sản phẩm.",
-  "Hỗ trợ đổi trả nếu sản phẩm lỗi kỹ thuật, sai mẫu hoặc hư hỏng do vận chuyển.",
-  "Tư vấn chọn xe theo độ tuổi, ngân sách và sở thích của bé trước khi đặt.",
-  shipping.note
-];
-
-const reviews = [
-  {
-    name: "Anh Minh, TP.HCM",
-    text: "Xe chắc, bé chơi phần gầu xúc rất thích. Shop tư vấn nhanh và đóng gói cẩn thận."
-  },
-  {
-    name: "Chị Hương, Hà Nội",
-    text: "Mua làm quà sinh nhật, hình ảnh ngoài đời giống mô tả. Bé mở hộp là chơi ngay."
-  },
-  {
-    name: "Anh Phúc, Đà Nẵng",
-    text: "Điều khiển nhạy, xe chạy ổn trên nền nhà. Giá hợp lý hơn mua lẻ nhiều mẫu khác."
-  }
-];
-
-const faqs = [
-  {
-    question: "Xe phù hợp cho bé mấy tuổi?",
-    answer:
-      "Các mẫu xe công trình điều khiển từ xa phù hợp cho bé từ khoảng 3 tuổi trở lên, cần người lớn hướng dẫn khi bé mới chơi."
-  },
-  {
-    question: "Sản phẩm có bảo hành không?",
-    answer:
-      "Có. Shop áp dụng bảo hành uy tín 7 ngày theo thông tin hiển thị trên sản phẩm và hỗ trợ xử lý lỗi kỹ thuật hoặc sai mẫu."
-  },
-  {
-    question: "Có giao hỏa tốc không?",
-    answer: `${shipping.express} tùy khu vực. Đơn đi tỉnh thường nhận hàng trong 1-4 ngày.`
-  },
-  {
-    question: "Nên chọn xe xúc, xe ben hay xe ủi?",
-    answer:
-      "Xe xúc hợp với bé thích thao tác gầu, xe ben hợp với bé thích chở vật liệu, xe ủi hợp với bé thích đẩy và san mặt bằng."
-  },
-  {
-    question: "Đặt hàng bằng cách nào nhanh nhất?",
-    answer:
-      "Bạn có thể bấm Chat Zalo, Shop Shopee hoặc Đặt ngay ở thanh cuối màn hình để shop tư vấn mẫu còn hàng và chốt đơn nhanh."
-  }
-];
+const benefitIcons = [ShieldCheck, Wrench, Truck, Gift];
 
 const productSchema = products.map((product) => ({
   "@type": "Product",
@@ -463,23 +396,23 @@ function BenefitSection() {
           text="Tập trung vào độ bền, khả năng chơi nhập vai và trải nghiệm điều khiển để bé chơi lâu hơn một món đồ chơi thông thường."
         />
         <div className="mt-8 grid gap-4 md:grid-cols-4">
-          {benefits.map((benefit) => (
-            <div
-              key={benefit.title}
-              className="rounded-[8px] border border-slate-200 bg-[#fffaf0] p-5"
-            >
-              <benefit.icon
-                aria-hidden="true"
-                className="size-8 text-steel-green"
-              />
-              <h3 className="mt-4 text-lg font-black text-ink">
-                {benefit.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                {benefit.text}
-              </p>
-            </div>
-          ))}
+          {benefits.map((benefit, index) => {
+            const Icon = benefitIcons[index] ?? ShieldCheck;
+            return (
+              <div
+                key={benefit.title}
+                className="rounded-[8px] border border-slate-200 bg-[#fffaf0] p-5"
+              >
+                <Icon aria-hidden="true" className="size-8 text-steel-green" />
+                <h3 className="mt-4 text-lg font-black text-ink">
+                  {benefit.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {benefit.text}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
