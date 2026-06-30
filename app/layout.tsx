@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { siteUrl } from "./salesConfig";
 import "./globals.css";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://dochoinhapkhau.tienso.vn";
 const siteName = "Xe Công Trình Đồ Chơi";
-const title = "Xe đồ chơi công trình cao cấp cho bé | Gọi/Zalo nhận ưu đãi";
+const title = "Xe đồ chơi công trình cao cấp cho bé | Chat Shopee nhận ưu đãi";
 const description =
-  "Landing page bán xe đồ chơi công trình cho bé: xe xúc, xe ben, xe cẩu, xe lu, combo công trường. Giao nhanh, đổi trả 7 ngày, tư vấn qua Zalo.";
+  "Landing page bán xe đồ chơi công trình cho bé: xe xúc, xe ben, xe cẩu, xe lu, combo công trường. Giao nhanh, đổi trả 7 ngày, thanh toán qua Shopee chính thức.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://dochoinhapkhau.tienso.vn";
+import { siteUrl } from "./salesConfig";
 
 export const dynamic = "force-static";
 

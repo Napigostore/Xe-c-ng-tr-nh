@@ -4,6 +4,8 @@ import Image from "next/image";
 import {
   BadgeCheck,
   Banknote,
+  CheckCircle2,
+  Copy,
   CreditCard,
   MessageCircle,
   PackageCheck,
@@ -17,6 +19,9 @@ import { useMemo, useState } from "react";
 type OrderCheckoutProps = {
   phoneHref: string;
   phoneDisplay: string;
+  hasPhoneContact: boolean;
+  primaryChatLabel: string;
+  primaryChatUrl: string;
   shopUrl: string;
   zaloUrl: string;
 };
@@ -92,6 +97,9 @@ const currency = new Intl.NumberFormat("vi-VN", {
 export function OrderCheckout({
   phoneHref,
   phoneDisplay,
+  hasPhoneContact,
+  primaryChatLabel,
+  primaryChatUrl,
   shopUrl,
   zaloUrl
 }: OrderCheckoutProps) {
@@ -103,6 +111,7 @@ export function OrderCheckout({
   const [childAge, setChildAge] = useState("");
   const [note, setNote] = useState("");
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0].id);
+  const [copied, setCopied] = useState(false);
 
   const selectedProduct =
     products.find((product) => product.id === productId) || products[0];
@@ -142,7 +151,15 @@ export function OrderCheckout({
     total
   ]);
 
-  const zaloOrderUrl = `${zaloUrl}?text=${encodeURIComponent(zaloMessage)}`;
+  const chatOrderUrl = zaloUrl
+    ? `${zaloUrl}?text=${encodeURIComponent(zaloMessage)}`
+    : primaryChatUrl;
+
+  const copyOrder = async () => {
+    await navigator.clipboard.writeText(zaloMessage);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
 
   return (
     <section id="dat-hang" className="bg-white py-12 md:py-16">
@@ -154,11 +171,11 @@ export function OrderCheckout({
               Tạo đơn trong 30 giây
             </p>
             <h2 className="mt-4 text-3xl font-black leading-tight md:text-5xl">
-              Chọn xe, nhận giá tạm tính, chốt đơn qua Zalo hoặc Shopee
+              Chọn xe, nhận giá tạm tính, chốt đơn qua chat hoặc Shopee
             </h2>
             <p className="mt-4 text-base leading-7 text-white/78">
               Form này không thu tiền trực tiếp trên website. Khách có thể
-              thanh toán thật qua Shopee chính thức, hoặc gửi đơn để shop xác
+              thanh toán thật qua Shopee chính thức, hoặc gửi thông tin để shop xác
               nhận tồn kho, phí vận chuyển và bảo hành trước khi thanh toán.
             </p>
 
@@ -329,13 +346,34 @@ export function OrderCheckout({
               </div>
             </fieldset>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <div className="mt-5 rounded-[8px] border border-dashed border-slate-300 bg-white p-3">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                Nội dung đơn đã soạn
+              </p>
+              <pre className="mt-2 max-h-36 overflow-auto whitespace-pre-wrap text-xs leading-5 text-slate-700">
+                {zaloMessage}
+              </pre>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <button
+                type="button"
+                onClick={copyOrder}
+                className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] border border-slate-300 bg-white px-4 py-3 text-sm font-black text-ink"
+              >
+                {copied ? (
+                  <CheckCircle2 aria-hidden="true" className="size-5" />
+                ) : (
+                  <Copy aria-hidden="true" className="size-5" />
+                )}
+                {copied ? "Đã copy" : "Copy đơn"}
+              </button>
               <a
-                href={zaloOrderUrl}
+                href={chatOrderUrl}
                 className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-zalo-blue px-4 py-3 text-sm font-black text-white"
               >
                 <MessageCircle aria-hidden="true" className="size-5" />
-                Gửi Zalo
+                {zaloUrl ? "Gửi Zalo" : primaryChatLabel}
               </a>
               <a
                 href={selectedProduct.href || shopUrl}
@@ -344,13 +382,23 @@ export function OrderCheckout({
                 <ShoppingBag aria-hidden="true" className="size-5" />
                 Thanh toán Shopee
               </a>
-              <a
-                href={phoneHref}
-                className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-ink px-4 py-3 text-sm font-black text-white"
-              >
-                <Phone aria-hidden="true" className="size-5" />
-                {phoneDisplay}
-              </a>
+              {hasPhoneContact ? (
+                <a
+                  href={phoneHref}
+                  className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-ink px-4 py-3 text-sm font-black text-white"
+                >
+                  <Phone aria-hidden="true" className="size-5" />
+                  {phoneDisplay}
+                </a>
+              ) : (
+                <a
+                  href={shopUrl}
+                  className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-ink px-4 py-3 text-sm font-black text-white"
+                >
+                  <ShoppingBag aria-hidden="true" className="size-5" />
+                  Shop chính thức
+                </a>
+              )}
             </div>
 
             <p className="mt-4 flex gap-2 text-xs font-semibold leading-5 text-slate-600">

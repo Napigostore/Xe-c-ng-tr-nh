@@ -16,11 +16,15 @@ import {
 } from "lucide-react";
 import { ConversionWidgets } from "./components/ConversionWidgets";
 import { OrderCheckout } from "./components/OrderCheckout";
-
-const shopUrl = "https://shopee.vn/napigo_eco_home";
-const phoneDisplay = "0900 000 000";
-const phoneHref = "tel:0900000000";
-const zaloUrl = "https://zalo.me/0900000000";
+import {
+  hasPhoneContact,
+  phoneDisplay,
+  phoneHref,
+  primaryChatLabel,
+  primaryChatUrl,
+  shopUrl,
+  zaloUrl
+} from "./salesConfig";
 
 const products = [
   {
@@ -159,7 +163,7 @@ const faqs = [
   {
     question: "Đặt hàng bằng cách nào nhanh nhất?",
     answer:
-      "Bạn có thể bấm Zalo, Gọi ngay hoặc Đặt ngay ở thanh cuối màn hình để shop tư vấn mẫu còn hàng và chốt đơn nhanh."
+      "Bạn có thể bấm Chat Shopee, Shop chính thức hoặc Đặt ngay ở thanh cuối màn hình để shop tư vấn mẫu còn hàng và chốt đơn nhanh."
   }
 ];
 
@@ -211,7 +215,7 @@ const jsonLd = {
       "@type": "WebPage",
       name: "Xe đồ chơi công trình cho bé",
       description:
-        "Landing page bán xe đồ chơi công trình điều khiển từ xa, tập trung tư vấn và chốt đơn nhanh qua Zalo hoặc điện thoại."
+        "Landing page bán xe đồ chơi công trình điều khiển từ xa, tập trung tư vấn, đặt hàng và thanh toán qua shop Shopee chính thức."
     },
     ...productSchema,
     faqSchema
@@ -230,6 +234,9 @@ export default function Home() {
       <OrderCheckout
         phoneDisplay={phoneDisplay}
         phoneHref={phoneHref}
+        hasPhoneContact={hasPhoneContact}
+        primaryChatLabel={primaryChatLabel}
+        primaryChatUrl={primaryChatUrl}
         shopUrl={shopUrl}
         zaloUrl={zaloUrl}
       />
@@ -239,7 +246,13 @@ export default function Home() {
       <TrustSection />
       <PolicySection />
       <FaqSection />
-      <ConversionWidgets zaloUrl={zaloUrl} phoneHref={phoneHref} />
+      <ConversionWidgets
+        hasPhoneContact={hasPhoneContact}
+        phoneHref={phoneHref}
+        primaryChatLabel={primaryChatLabel}
+        primaryChatUrl={primaryChatUrl}
+        shopUrl={shopUrl}
+      />
     </main>
   );
 }
@@ -288,19 +301,29 @@ function Hero() {
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
-                href={zaloUrl}
+                href={primaryChatUrl}
                 className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-zalo-blue px-5 py-3 text-base font-black text-white shadow-lift transition hover:translate-y-[-1px]"
               >
                 <MessageCircle aria-hidden="true" className="size-5" />
-                Chat Zalo nhận ưu đãi
+                {primaryChatLabel} nhận ưu đãi
               </a>
-              <a
-                href={phoneHref}
-                className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-signal-red px-5 py-3 text-base font-black text-white shadow-lift transition hover:translate-y-[-1px]"
-              >
-                <Phone aria-hidden="true" className="size-5" />
-                Gọi ngay {phoneDisplay}
-              </a>
+              {hasPhoneContact ? (
+                <a
+                  href={phoneHref}
+                  className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-signal-red px-5 py-3 text-base font-black text-white shadow-lift transition hover:translate-y-[-1px]"
+                >
+                  <Phone aria-hidden="true" className="size-5" />
+                  Gọi ngay {phoneDisplay}
+                </a>
+              ) : (
+                <a
+                  href={shopUrl}
+                  className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-signal-red px-5 py-3 text-base font-black text-white shadow-lift transition hover:translate-y-[-1px]"
+                >
+                  <ShoppingBag aria-hidden="true" className="size-5" />
+                  Mua an toàn trên Shopee
+                </a>
+              )}
             </div>
 
             <div className="mt-6 grid grid-cols-3 gap-2 text-center">
