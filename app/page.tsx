@@ -17,14 +17,18 @@ import {
 import { ConversionWidgets } from "./components/ConversionWidgets";
 import { OrderCheckout } from "./components/OrderCheckout";
 import {
+  salesConfig,
   hasPhoneContact,
-  phoneDisplay,
-  phoneHref,
+  hasZaloContact,
   primaryChatLabel,
   primaryChatUrl,
-  shopUrl,
-  zaloUrl
-} from "./salesConfig";
+} from "./config/salesConfig";
+
+import { company } from "./config/company";
+import { shipping } from "./config/shipping";
+import { banner } from "./config/banner";
+import { seo } from "./config/seo";
+import { products } from "./config/products";
 
 const products = [
   {
