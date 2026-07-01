@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { MediaShowcase } from "./components/MediaShowcase";
 import { SiteFooter } from "./components/SiteFooter";
 import { company } from "./config/company";
 import { seo } from "./config/seo";
@@ -69,6 +70,7 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         {children}
+        <MediaShowcase />
         <SiteFooter />
       </body>
     </html>
