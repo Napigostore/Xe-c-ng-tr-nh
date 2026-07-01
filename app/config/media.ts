@@ -11,7 +11,7 @@ export const feedbackImages = [
 
 export const galleryImages = [
   {
-    src: "/gallery/kho01.jpg",
+    src: "/gallery/kho01.png",
     title: "Kho hàng thật",
     text: "Sản phẩm được lưu kho, kiểm tra và chuẩn bị trước khi gửi khách.",
   },
@@ -26,7 +26,7 @@ export const galleryImages = [
     text: "Đơn nội thành được ưu tiên xử lý hỏa tốc theo khu vực.",
   },
   {
-    src: "/gallery/kho02.jpg",
+    src: "/gallery/kho02.png",
     title: "Hàng có sẵn",
     text: "Khách có thể nhắn Zalo để kiểm mẫu còn hàng trước khi chốt đơn.",
   },
