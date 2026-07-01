@@ -1,12 +1,12 @@
 export const feedbackImages = [
-  "/feedback/fb01.jpg",
-  "/feedback/fb02.jpg",
-  "/feedback/fb03.jpg",
-  "/feedback/fb04.jpg",
-  "/feedback/fb05.jpg",
-  "/feedback/fb06.jpg",
-  "/feedback/fb07.jpg",
-  "/feedback/fb08.jpg",
+  "/feedback/fb01.png",
+  "/feedback/fb02.png",
+  "/feedback/fb03.png",
+  "/feedback/fb04.png",
+  "/feedback/fb05.png",
+  "/feedback/fb06.png",
+  "/feedback/fb07.png",
+  "/feedback/fb08.png",
 ];
 
 export const galleryImages = [
@@ -16,12 +16,12 @@ export const galleryImages = [
     text: "Sản phẩm được lưu kho, kiểm tra và chuẩn bị trước khi gửi khách.",
   },
   {
-    src: "/gallery/donggoi01.jpg",
+    src: "/gallery/donggoi01.png",
     title: "Đóng gói cẩn thận",
     text: "Shop kiểm tra ngoại quan, bọc kỹ để hạn chế móp hộp khi vận chuyển.",
   },
   {
-    src: "/gallery/donggoi02.jpg",
+    src: "/gallery/donggoi02.png",
     title: "Chuẩn bị giao nhanh",
     text: "Đơn nội thành được ưu tiên xử lý hỏa tốc theo khu vực.",
   },
@@ -31,12 +31,12 @@ export const galleryImages = [
     text: "Khách có thể nhắn Zalo để kiểm mẫu còn hàng trước khi chốt đơn.",
   },
   {
-    src: "/gallery/bechoi01.jpg",
+    src: "/gallery/bechoi01.png",
     title: "Bé chơi thực tế",
     text: "Dòng xe công trình giúp bé chơi nhập vai và khám phá chuyển động cơ khí.",
   },
   {
-    src: "/gallery/bechoi02.jpg",
+    src: "/gallery/bechoi02.png",
     title: "Quà tặng cho bé",
     text: "Phù hợp làm quà sinh nhật, phần thưởng học tập hoặc đồ chơi cuối tuần.",
   },
