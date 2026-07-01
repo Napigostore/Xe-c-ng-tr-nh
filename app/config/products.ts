@@ -2,6 +2,19 @@ import { salesConfig } from "./salesConfig";
 
 export const products = [
   {
+    name: "Combo 3 xe công trình: Xúc XUEZHISHAN + Ben XUEZHISHAN + Ủi YIGONG",
+    model: "Bộ 3 xe điều khiển từ xa: máy xúc XUEZHISHAN, xe ben XUEZHISHAN và xe ủi YIGONG",
+    price: "1.199.000đ",
+    schemaPrice: "1199000",
+    rating: "4.9",
+    sold: "Combo tiết kiệm",
+    reviews: "Ưu đãi 20% so với mua lẻ",
+    image: "/assets/products/combo-3-xe-cong-trinh.png",
+    badge: "Tiết kiệm 401.000đ",
+    highlights: ["Giá gốc 1.600.000đ", "Giá KM 1.199.000đ", "Bộ công trình đầy đủ"],
+    href: `${salesConfig.shopUrl}?keyword=combo%203%20xe%20cong%20trinh`,
+  },
+  {
     name: "Máy xúc điều khiển từ xa YIGONG",
     model: "11 kênh, gầu hợp kim, tỉ lệ 1:20",
     price: "599.000đ",
