@@ -44,28 +44,38 @@ const zaloUrl = salesConfig.zaloUrl;
 const comboProducts = products.slice(0, 2);
 const benefitIcons = [ShieldCheck, Wrench, Truck, Gift];
 
-const productSchema = products.map((product) => ({
-  "@type": "Product",
-  name: product.name,
-  description: `${product.name} ${product.model}. ${product.highlights.join(", ")}.`,
-  image: product.image,
-  brand: {
-    "@type": "Brand",
-    name: product.name.includes("YIGONG") ? "YIGONG" : "XUEZHISHAN"
-  },
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "VND",
-    price: product.schemaPrice,
-    availability: "https://schema.org/InStock",
-    url: product.href
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: product.rating,
-    reviewCount: product.reviews.replace(/\D/g, "") || "1"
-  }
-}));
+const productSchema = products.map((product) => {
+  const reviewCount = product.reviews.includes("đánh giá")
+    ? product.reviews.replace(/\D/g, "")
+    : "";
+
+  return {
+    "@type": "Product",
+    name: product.name,
+    description: `${product.name} ${product.model}. ${product.highlights.join(", ")}.`,
+    image: product.image,
+    brand: {
+      "@type": "Brand",
+      name: product.name.includes("YIGONG") ? "YIGONG" : "XUEZHISHAN"
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "VND",
+      price: product.schemaPrice,
+      availability: "https://schema.org/InStock",
+      url: product.href
+    },
+    ...(reviewCount
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: product.rating,
+            reviewCount
+          }
+        }
+      : {})
+  };
+});
 
 const faqSchema = {
   "@type": "FAQPage",
