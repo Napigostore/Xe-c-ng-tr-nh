@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { AnalyticsPixels } from "./components/AnalyticsPixels";
 import { MediaShowcase } from "./components/MediaShowcase";
 import { SiteFooter } from "./components/SiteFooter";
 import { company } from "./config/company";
@@ -69,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body>
+        <AnalyticsPixels />
         {children}
         <MediaShowcase />
         <SiteFooter />

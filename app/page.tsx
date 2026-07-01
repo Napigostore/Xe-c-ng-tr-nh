@@ -3,6 +3,7 @@ import {
   BadgeCheck,
   ChevronRight,
   Clock3,
+  Flame,
   Gift,
   MessageCircle,
   PackageCheck,
@@ -11,11 +12,16 @@ import {
   ShoppingBag,
   Sparkles,
   Star,
+  TrendingUp,
   Truck,
   Wrench
 } from "lucide-react";
 import { ConversionWidgets } from "./components/ConversionWidgets";
 import { OrderCheckout } from "./components/OrderCheckout";
+import {
+  PremiumActivityStrip,
+  StockTodayCard
+} from "./components/PremiumActivity";
 import {
   salesConfig,
   hasPhoneContact,
@@ -35,6 +41,7 @@ const shopUrl = salesConfig.shopUrl;
 const phoneDisplay = salesConfig.phoneDisplay;
 const phoneHref = salesConfig.phoneHref;
 const zaloUrl = salesConfig.zaloUrl;
+const comboProducts = products.slice(0, 2);
 const benefitIcons = [ShieldCheck, Wrench, Truck, Gift];
 
 const productSchema = products.map((product) => ({
@@ -56,7 +63,7 @@ const productSchema = products.map((product) => ({
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: product.rating,
-    reviewCount: product.reviews.replace(/\D/g, "")
+    reviewCount: product.reviews.replace(/\D/g, "") || "1"
   }
 }));
 
@@ -100,6 +107,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
+      <ComboSection />
       <ProductSection />
       <OrderCheckout
         phoneDisplay={phoneDisplay}
@@ -217,6 +225,7 @@ function Hero() {
                 </div>
               ))}
             </div>
+            <PremiumActivityStrip />
           </div>
 
           <div className="relative">
@@ -265,6 +274,119 @@ function PromoBanner() {
         </a>
       </div>
     </div>
+  );
+}
+
+function ComboSection() {
+  return (
+    <section id="combo" className="bg-ink py-12 text-white md:py-16">
+      <div className="section-shell">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-signal-red px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-white">
+              <Flame aria-hidden="true" className="size-4" />
+              Combo tiết kiệm
+            </p>
+            <h2 className="mt-4 max-w-3xl text-3xl font-black leading-tight md:text-5xl">
+              Mua theo bộ để bé có đủ xe công trường và tiết kiệm hơn mua lẻ
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-white/78">
+              Chọn nhanh dòng xe phù hợp với ngân sách, sau đó nhắn Zalo để shop
+              xác nhận mẫu còn hàng, ảnh thực tế và phí giao trước khi chốt đơn.
+            </p>
+          </div>
+
+          <StockTodayCard />
+        </div>
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          {comboProducts.map((product, index) => (
+            <article
+              key={product.name}
+              className="grid gap-5 rounded-[8px] border border-white/12 bg-white p-4 text-ink shadow-soft md:grid-cols-[190px_1fr] md:p-5"
+            >
+              <div className="relative aspect-square overflow-hidden rounded-[8px] bg-slate-100">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 190px, 45vw"
+                />
+              </div>
+
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-safety-yellow px-3 py-1 text-xs font-black text-ink">
+                    Tiết kiệm 20%
+                  </span>
+                  <span className="rounded-full bg-[#eef8f5] px-3 py-1 text-xs font-black text-steel-green">
+                    {product.badge}
+                  </span>
+                </div>
+                <h3 className="mt-4 text-2xl font-black">
+                  {index === 0 ? "Combo XUEZHISHAN" : "Combo YIGONG"}
+                </h3>
+                <p className="mt-2 text-4xl font-black text-signal-red">
+                  {product.price}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {product.model}
+                </p>
+                <div className="mt-4 grid gap-2">
+                  {product.highlights.map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-sm font-bold">
+                      <BadgeCheck
+                        aria-hidden="true"
+                        className="size-4 shrink-0 text-steel-green"
+                      />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <a
+                    href="#dat-hang"
+                    className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] bg-signal-red px-4 py-3 text-sm font-black text-white"
+                  >
+                    Mua ngay
+                    <ChevronRight aria-hidden="true" className="size-4" />
+                  </a>
+                  <a
+                    href={primaryChatUrl}
+                    className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] border border-slate-200 bg-white px-4 py-3 text-sm font-black text-ink"
+                  >
+                    <MessageCircle aria-hidden="true" className="size-4" />
+                    Hỏi combo này
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-3 rounded-[8px] border border-white/12 bg-white/8 p-4 md:grid-cols-3">
+          {[
+            ["Mua lẻ", "Tự chọn từng xe, phù hợp khi bé mới thử chơi một mẫu."],
+            ["Mua combo", "Tiết kiệm hơn, có đủ xe để chơi nhập vai công trường."],
+            ["Chốt qua Zalo", "Shop xác nhận ảnh/video, phí giao và bảo hành trước khi thanh toán."]
+          ].map(([title, text]) => (
+            <div key={title} className="flex gap-3">
+              <TrendingUp
+                aria-hidden="true"
+                className="mt-0.5 size-5 shrink-0 text-safety-yellow"
+              />
+              <p>
+                <span className="block text-sm font-black">{title}</span>
+                <span className="mt-1 block text-sm leading-6 text-white/70">
+                  {text}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -571,7 +693,7 @@ function FaqSection() {
           title="Câu hỏi thường gặp"
           text="Trả lời nhanh những điểm khách hàng thường hỏi trước khi đặt xe công trình cho bé."
         />
-        <div className="mt-8 grid gap-3">
+        <div className="mt-8 grid gap-3 lg:grid-cols-2">
           {faqs.map((faq) => (
             <details
               key={faq.question}

@@ -28,6 +28,22 @@ type OrderCheckoutProps = {
 
 const products = [
   {
+    id: "combo-xuezhishan",
+    displayName: "Combo XUEZHISHAN tiết kiệm",
+    price: 1199000,
+    image: "/assets/products/xuc-xuezhishan.webp",
+    href: "https://shopee.vn/napigo_eco_home?keyword=xuezhishan%20combo",
+    isCombo: true
+  },
+  {
+    id: "combo-yigong",
+    displayName: "Combo YIGONG tiết kiệm",
+    price: 1299000,
+    image: "/assets/products/xuc-yigong.webp",
+    href: "https://shopee.vn/napigo_eco_home?keyword=yigong%20combo",
+    isCombo: true
+  },
+  {
     id: "xuc-yigong",
     displayName: "Máy xúc YIGONG 11 kênh",
     price: 359000,
@@ -116,7 +132,8 @@ export function OrderCheckout({
   const selectedProduct =
     products.find((product) => product.id === productId) || products[0];
   const subtotal = selectedProduct.price * quantity;
-  const discount = quantity >= 2 ? Math.round(subtotal * 0.08) : 0;
+  const discount =
+    !selectedProduct.isCombo && quantity >= 2 ? Math.round(subtotal * 0.08) : 0;
   const total = subtotal - discount;
 
   const zaloMessage = useMemo(() => {
@@ -259,9 +276,11 @@ export function OrderCheckout({
             </div>
 
             <div className="mt-4 rounded-[8px] bg-white px-4 py-3 text-sm font-bold text-slate-700">
-              {discount > 0
-                ? `Đã áp dụng ưu đãi combo: -${currency.format(discount)}`
-                : "Mua từ 2 xe được giảm thêm 8% theo chương trình combo."}
+              {selectedProduct.isCombo
+                ? "Combo đã có giá tiết kiệm riêng. Shop sẽ xác nhận đủ mẫu và quà tặng trước khi chốt."
+                : discount > 0
+                  ? `Đã áp dụng ưu đãi combo: -${currency.format(discount)}`
+                  : "Mua từ 2 xe được giảm thêm 8% theo chương trình combo."}
             </div>
 
             <div className="mt-5 grid gap-3 md:grid-cols-2">
